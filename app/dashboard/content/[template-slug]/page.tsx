@@ -63,7 +63,7 @@ const CreateNewContent = (props: PROPS) => {
                     loading={loading}
                 />
                 <div className="col-span-2">
-                    <OutputSection content={generatedContent} />
+                    <OutputSection />
                 </div>
             </div>
         </div>
