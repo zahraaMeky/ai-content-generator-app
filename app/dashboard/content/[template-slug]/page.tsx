@@ -17,21 +17,20 @@ const CreateNewContent = (props: PROPS) => {
     const selectedTemplate: TEMPLATES | undefined = Templates?.find((item) => item.slug === props.params["template-slug"]);
 
     const generateAiContent = async (formData: any) => {
-        if (!selectedTemplate) {
-            console.error('No template selected');
-            return;
-        }
+    
         setLoading(true);
-        const selectedPrompt = selectedTemplate.aiPrompt;
+        const selectedPrompt = selectedTemplate?.aiPrompt;
         const finalPrompt = JSON.stringify(formData) + ", " + selectedPrompt;
         try {
             const result = await chatSession.sendMessage(finalPrompt);
             const responseText = await result.response.text();
+            console.log('responseText',responseText)
             setGeneratedContent(responseText);
+            setLoading(false);
         } catch (error) {
             console.error('Error generating content:', error);
         }
-        setLoading(false);
+       
     }
 
     if (!selectedTemplate) {
