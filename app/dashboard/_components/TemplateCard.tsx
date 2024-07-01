@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const TemplateCard = (item: TEMPLATES) => {
   return (
-    <Link href={`/dashboard/content/${item.slug}`} className="p-5 shadow-md flex flex-col rounded-md bg-white border gap-3 cursor-pointer
+    <Link  href={`/dashboard/content/${item.slug}`}  className="p-5 shadow-md flex flex-col rounded-md bg-white border gap-3 cursor-pointer
     hover:scale-105 transition-all">
        <Image
           src={item.icon}
