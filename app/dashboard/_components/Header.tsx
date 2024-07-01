@@ -2,8 +2,8 @@ import { Search } from "lucide-react"
 
 const Header = () => {
   return (
-    <div className="p-5 shadow-sm border-b-2 flex justify-between items-center">
-      <div className="flex gap-2 border rounded-md p-2 max-w-lg">
+    <div className="p-5 shadow-sm border-b-2 flex justify-between items-center bg-white">
+      <div className="flex gap-2 border rounded-md p-2 max-w-lg bg-white">
         <Search/>
         <input placeholder="Search ......." className="outline-none"/>
       </div>

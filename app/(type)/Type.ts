@@ -13,3 +13,15 @@ export interface TEMPLATES {
     name: string;
     required?: boolean;
   }
+  export interface PROPS {
+    params:{
+      'template-slug': string;
+    }
+   
+  }
+  export interface SELECTEDTEMPLATE  {
+    selectedTemplate: TEMPLATES; 
+    userFormInput:any,
+    loading:boolean
+
+  }
