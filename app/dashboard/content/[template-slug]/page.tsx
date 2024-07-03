@@ -12,7 +12,7 @@ import { chatSession } from "@/utils/AiModel"
 
 const CreateNewContent = (props: PROPS) => {
     const [loading, setLoading] = useState(false);
-    const [generatedContent, setGeneratedContent] = useState("");
+    const [aiGeneratedOutput, setAiGeneratedOutput] = useState<string>();
 
     const selectedTemplate: TEMPLATES | undefined = Templates?.find((item) => item.slug === props.params["template-slug"]);
 
@@ -23,9 +23,9 @@ const CreateNewContent = (props: PROPS) => {
         const finalPrompt = JSON.stringify(formData) + ", " + selectedPrompt;
         try {
             const result = await chatSession.sendMessage(finalPrompt);
-            const responseText = await result.response.text();
+            const responseText = await result?.response.text();
             console.log('responseText',responseText)
-            setGeneratedContent(responseText);
+            setAiGeneratedOutput(responseText);
             setLoading(false);
         } catch (error) {
             console.error('Error generating content:', error);
@@ -62,7 +62,7 @@ const CreateNewContent = (props: PROPS) => {
                     loading={loading}
                 />
                 <div className="col-span-2">
-                    <OutputSection />
+                    <OutputSection aiGeneratedOutput = {aiGeneratedOutput}/>
                 </div>
             </div>
         </div>

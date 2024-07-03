@@ -16,6 +16,7 @@ export interface TEMPLATES {
   export interface PROPS {
     params:{
       'template-slug': string;
+      aiGeneratedOutput:string
     }
    
   }
