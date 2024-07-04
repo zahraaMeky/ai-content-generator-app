@@ -26,3 +26,13 @@ export interface TEMPLATES {
     loading:boolean
 
   }
+
+  export interface HISTORY {
+    id : Number; 
+    formData:String,
+    aiResponse:String,
+    templateSlug:String,
+    CreatedBy:String,
+    CreatedAt:String
+
+  }

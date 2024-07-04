@@ -9,15 +9,19 @@ import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { chatSession } from "@/utils/AiModel"
+import { db } from "@/utils/dbConnection";
+import { AIOutput } from "@/utils/Schema";
+import { useUser } from "@clerk/nextjs";
+import moment from "moment";
 
 const CreateNewContent = (props: PROPS) => {
     const [loading, setLoading] = useState(false);
     const [aiGeneratedOutput, setAiGeneratedOutput] = useState<string>();
+    const {user} =useUser()
 
     const selectedTemplate: TEMPLATES | undefined = Templates?.find((item) => item.slug === props.params["template-slug"]);
 
     const generateAiContent = async (formData: any) => {
-    
         setLoading(true);
         const selectedPrompt = selectedTemplate?.aiPrompt;
         const finalPrompt = JSON.stringify(formData) + ", " + selectedPrompt;
@@ -26,11 +30,23 @@ const CreateNewContent = (props: PROPS) => {
             const responseText = await result?.response.text();
             console.log('responseText',responseText)
             setAiGeneratedOutput(responseText);
+            await saveInDB(formData,selectedTemplate?.slug,responseText)
             setLoading(false);
         } catch (error) {
             console.error('Error generating content:', error);
         }
        
+    }
+    const saveInDB=async(formData:any,slug:any,aiResponse:string)=>{
+        const result = await db.insert(AIOutput).values({
+            formData:formData,
+            templateSlug:slug,
+            aiResponse:aiResponse,
+            createdBy:user?.primaryEmailAddress?.emailAddress,
+            createdAt:moment().format("DD/MM/YYYY")
+        })
+        console.log(result,user?.primaryEmailAddress?.emailAddress)
+
     }
 
     if (!selectedTemplate) {
