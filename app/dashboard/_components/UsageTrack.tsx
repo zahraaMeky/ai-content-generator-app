@@ -1,18 +1,25 @@
 'use client'
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button } from "@/components/ui/button"
 import { db } from "@/utils/dbConnection"
 import { AIOutput } from "@/utils/Schema"
 import { useUser } from "@clerk/nextjs";
 import { eq } from 'drizzle-orm';
 import { HISTORY } from "@/app/(type)/Type";
+import { TotalUsageContext } from '@/app/context/TotalUsageContext';
+import { UpdateCreditUsage } from '@/app/context/UpdateCreditUsage';
 const UsageTrack = () => {
   const {user} = useUser()
-  const [totalUsage, setTotalUsage] = useState<number>(0);
+  const {totalUsage,setTotalUsage} = useContext(TotalUsageContext);
+  const {updateUsage,setUpdateUsage} = useContext(UpdateCreditUsage);
   
     useEffect(() => {
         user&&getData()
       },[user]);
+
+      useEffect(() => {
+        user&&getData()
+      },[updateUsage&&user]);
 
     const getData =async ()=>{
         const result:HISTORY[] = await db.select().from(AIOutput).where(eq(AIOutput.createdBy,user?.primaryEmailAddress?.emailAddress));

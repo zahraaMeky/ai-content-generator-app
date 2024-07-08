@@ -66,7 +66,11 @@ const HistoryList = () => {
               <div className='col-span-2 line-clamp-3'>{item.aiResponse}</div>
               <div>{moment(item.createdAt).format("DD/MM/YYYY")}</div>
               <div>{item.wordCount}</div>
-              <div><Button variant={"secondary"} className="text-primary">Copy</Button></div>
+              <div>
+                <Button variant={"secondary"} className="text-primary"
+                  onClick = {()=>navigator.clipboard.writeText(item.aiResponse)}
+                  >
+                Copy</Button></div>
             </div>
           );
         })}

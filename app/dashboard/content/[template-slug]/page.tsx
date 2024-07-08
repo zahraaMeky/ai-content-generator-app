@@ -1,5 +1,5 @@
 'use client'
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { PROPS } from "@/app/(type)/Type"
 import FormSection from "../_components/FormSection"
 import OutputSection from "../_components/OutputSecton"
@@ -13,15 +13,28 @@ import { db } from "@/utils/dbConnection";
 import { AIOutput } from "@/utils/Schema";
 import { useUser } from "@clerk/nextjs";
 import moment from "moment";
+import { TotalUsageContext } from "@/app/context/TotalUsageContext";
+import { useRouter } from 'next/navigation';
+import { UpdateCreditUsage } from "@/app/context/UpdateCreditUsage";
+
 
 const CreateNewContent = (props: PROPS) => {
     const [loading, setLoading] = useState(false);
     const [aiGeneratedOutput, setAiGeneratedOutput] = useState<string>();
     const {user} =useUser()
+    const {totalUsage,setTotalUsage} = useContext(TotalUsageContext);
+    const {updateUsage,setUpdateUsage} = useContext(UpdateCreditUsage);
+
+    const router = useRouter()
 
     const selectedTemplate: TEMPLATES | undefined = Templates?.find((item) => item.slug === props.params["template-slug"]);
 
     const generateAiContent = async (formData: any) => {
+        if(totalUsage>10000){
+            router.push("/dashboard/billing")
+            console.log("Please Upgrade")
+            // Alert dialog from shadcn
+        }
         setLoading(true);
         const selectedPrompt = selectedTemplate?.aiPrompt;
         const finalPrompt = JSON.stringify(formData) + ", " + selectedPrompt;
@@ -32,6 +45,7 @@ const CreateNewContent = (props: PROPS) => {
             setAiGeneratedOutput(responseText);
             await saveInDB(formData,selectedTemplate?.slug,responseText)
             setLoading(false);
+            setUpdateUsage(Date.now())
         } catch (error) {
             console.error('Error generating content:', error);
         }
