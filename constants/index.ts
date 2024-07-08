@@ -18,7 +18,7 @@ export const navLinks = [
     },
     {
       label: "Setting",
-      route: "//dashboard/setting",
+      route: "/dashboard/setting",
       icon: Settings,
     },
     
