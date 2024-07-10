@@ -9,3 +9,4 @@ export const AIOutput = pgTable('aioutput', {
     createdAt:     varchar('createdAt').notNull(),
   });
   
+  
