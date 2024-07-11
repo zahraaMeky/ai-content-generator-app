@@ -9,6 +9,7 @@ import { HISTORY } from "@/app/(type)/Type";
 import { TotalUsageContext } from '@/app/context/TotalUsageContext';
 import { UpdateCreditUsage } from '@/app/context/UpdateCreditUsage';
 import { UserSubscriptionContext } from '@/app/context/UserSubscriptionContext';
+import Link from 'next/link';
 const UsageTrack = () => {
   const {user} = useUser()
   const {totalUsage,setTotalUsage} = useContext(TotalUsageContext);
@@ -68,7 +69,12 @@ const UsageTrack = () => {
         </div>
         <h2 className="text-sm my-2">{totalUsage}/{Intl.NumberFormat('en-US').format(maxWords)} Credit Used</h2>
       </div>
-      <Button variant={"secondary"} className="w-full my-3 text-primary">Upgrade</Button>
+      <div className='w-full my-3 bg-slate-200 text-center py-2 rounded-lg'>
+        <Link href="/dashboard/billing" className=" text-primary">
+          Upgrade
+        </Link>
+      </div>
+      
     </div>
   )
 }
