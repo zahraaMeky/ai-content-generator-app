@@ -8,6 +8,7 @@ import { eq } from 'drizzle-orm';
 import { Templates } from "@/app/(data)/Templates";
 import { TEMPLATES } from "@/app/(type)/Type";
 import { Button } from "@/components/ui/button";
+import { Loader2Icon } from 'lucide-react';
 
 // Utility function to count words in a string
 const countWords = (text) => {
@@ -17,9 +18,11 @@ const countWords = (text) => {
 const HistoryList = () => {
   const { user } = useUser();
   const [result, setResult] = useState([]);
+  const [loading, setLoading] = useState(false);
   
 
   const getData = async () => {
+    setLoading(true);
     try {
       const fetchedResult = await db.select().from(AIOutput).where(eq(AIOutput.createdBy, user?.primaryEmailAddress?.emailAddress));
       const resultWithWordCount = fetchedResult.map(item => ({
@@ -27,6 +30,9 @@ const HistoryList = () => {
         wordCount: countWords(item.aiResponse)
       }));
       setResult(resultWithWordCount);
+      if(resultWithWordCount){
+        setLoading(false);
+      }
       console.log('result', resultWithWordCount);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -55,27 +61,36 @@ const HistoryList = () => {
           <h2>WORDS</h2>
           <h2>COPY</h2>
         </div>
-        <div>
-          {result.map((item, index) => {
-            const template = findTemplate(item.templateSlug); // Adjust property name if needed
-            return (
-              <div key={index} className='grid grid-cols-7 py-3 px-3'>
-                <div className='col-span-2 flex gap-2 items-center'>
-                  <img src={template?.icon} alt={template?.name} className='w-10 h-10' />
-                  <h2>{template?.name}</h2>
-                </div>
-                <div className='col-span-2 line-clamp-3'>{item.aiResponse}</div>
-                <div>{moment(item.createdAt).format("DD/MM/YYYY")}</div>
-                <div>{item.wordCount}</div>
-                <div>
-                  <Button variant={"secondary"} className="text-primary"
-                    onClick = {()=>navigator.clipboard.writeText(item.aiResponse)}
-                    >
-                  Copy</Button></div>
-              </div>
-            );
-          })}
+        {loading?
+        <div className='flex justify-center items-center mx-auto mt-5'>
+            <Loader2Icon className="animate-spin text-primary"/>
         </div>
+        
+        :
+        <div>
+        {result.map((item, index) => {
+          const template = findTemplate(item.templateSlug); // Adjust property name if needed
+          return (
+            <div key={index} className='grid grid-cols-7 py-3 px-3'>
+              <div className='col-span-2 flex gap-2 items-center'>
+                <img src={template?.icon} alt={template?.name} className='w-10 h-10' />
+                <h2>{template?.name}</h2>
+              </div>
+              <div className='col-span-2 line-clamp-3'>{item.aiResponse}</div>
+              <div>{moment(item.createdAt).format("DD/MM/YYYY")}</div>
+              <div>{item.wordCount}</div>
+              <div>
+                <Button variant={"secondary"} className="text-primary"
+                  onClick = {()=>navigator.clipboard.writeText(item.aiResponse)}
+                  >
+                Copy</Button></div>
+            </div>
+          );
+        })}
+      </div>
+      }
+       
+
       </div>
     </div>
   );
