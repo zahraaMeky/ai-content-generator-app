@@ -16,6 +16,7 @@ import moment from "moment";
 import { TotalUsageContext } from "@/app/context/TotalUsageContext";
 import { useRouter } from 'next/navigation';
 import { UpdateCreditUsage } from "@/app/context/UpdateCreditUsage";
+import { UserSubscriptionContext } from "@/app/context/UserSubscriptionContext";
 
 
 const CreateNewContent = (props: PROPS) => {
@@ -24,13 +25,13 @@ const CreateNewContent = (props: PROPS) => {
     const {user} =useUser()
     const {totalUsage,setTotalUsage} = useContext(TotalUsageContext);
     const {updateUsage,setUpdateUsage} = useContext(UpdateCreditUsage);
-
+    const {userSubscription,setUserSubscription} = useContext(UserSubscriptionContext);
     const router = useRouter()
 
     const selectedTemplate: TEMPLATES | undefined = Templates?.find((item) => item.slug === props.params["template-slug"]);
 
     const generateAiContent = async (formData: any) => {
-        if(totalUsage>10000){
+        if(totalUsage>10000 && !userSubscription){
             router.push("/dashboard/billing")
             console.log("Please Upgrade")
             // Alert dialog from shadcn

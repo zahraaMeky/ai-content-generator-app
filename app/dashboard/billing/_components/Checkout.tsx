@@ -1,13 +1,18 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect,useContext } from "react";
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import { toast, useToast } from "@/components/ui/use-toast"
-
+import { UserSubscription } from "@/utils/Schema";
+import { db } from "@/utils/dbConnection";
+import moment from "moment";
+import { UserSubscriptionContext } from "@/app/context/UserSubscriptionContext";
+import { Button } from "@/components/ui/button";
 interface CheckoutProps {
   plan: string;
   amount: number;
   credits: string;
   buyerEmail: string;
+  userName:string
 }
 
 const Checkout: React.FC<CheckoutProps> = ({
@@ -15,8 +20,9 @@ const Checkout: React.FC<CheckoutProps> = ({
   amount,
   credits,
   buyerEmail,
+  userName
 }) => {
-
+  const {userSubscription,setUserSubscription} = useContext(UserSubscriptionContext);
 
   const createOrder = (data: any, actions: any) => {
     return actions.order.create({
@@ -33,13 +39,17 @@ const Checkout: React.FC<CheckoutProps> = ({
 
   const onApprove = (data: any, actions: any) => {
     return actions.order.capture().then((details: any) => {
-        console.log("paypalResonse",data)
-        toast({
-        title: "Order placed!",
-        description: `Transaction completed by ${details.payer.name.given_name}`,
-        duration: 5000,
-        className: "success-toast",
-      });
+        console.log("paypalResonse",data.paymentID,data.payerID,data.orderID)
+        if(data){
+          saveSubscription(data.paymentID)
+          toast({
+            title: "Order placed!",
+            description: `Transaction completed by ${details.payer.name.given_name}`,
+            duration: 5000,
+            className: "success-toast",
+          });
+        }
+      
     });
   };
 
@@ -66,7 +76,22 @@ const Checkout: React.FC<CheckoutProps> = ({
     console.log("Transaction details:", transaction);
   };
 
+  const saveSubscription = async(paymentId:string)=>{
+    const result = await db.insert(UserSubscription).values({
+      email:buyerEmail,
+      userName:userName,
+      planID:plan,
+      paymentID:paymentId,
+      joinDate:moment().format("DD/MM/YYYY"),
+      active:true
+  })
+    console.log('result from saveSubscription',result)
+  }
   return (
+    <div>
+      {userSubscription ? (
+        <Button className="w-full">Active</Button>
+      ) : (
         <PayPalButtons
           style={{
             color: 'gold',
@@ -78,6 +103,8 @@ const Checkout: React.FC<CheckoutProps> = ({
           onApprove={onApprove}
           onError={onError}
         />
+      )}
+    </div>
   );
 };
 

@@ -54,10 +54,10 @@ export const navLinks = [
       name: "Free",
       icon: "/free-plan.svg",
       price: 0,
-      credits: Intl.NumberFormat('en-US').format(10000),
+      credits: "Free",
       inclusions: [
         {
-          label: "20 Free Credits",
+          label: Intl.NumberFormat('en-US').format(10000) +" Credits",
           isIncluded: true,
         },
         {
@@ -79,10 +79,10 @@ export const navLinks = [
       name: "Pro Package",
       icon: "/free-plan.svg",
       price: 40,
-      credits: Intl.NumberFormat('en-US').format(100000),
+      credits:'40$ / Month',
       inclusions: [
         {
-          label: "120 Credits",
+          label: Intl.NumberFormat('en-US').format(100000) +" Credits",
           isIncluded: true,
         },
         {
@@ -99,31 +99,31 @@ export const navLinks = [
         },
       ],
     },
-    {
-      _id: 3,
-      name: "Premium Package",
-      icon: "/free-plan.svg",
-      price: 199,
-      credits: Intl.NumberFormat('en-US').format(1000000),
-      inclusions: [
-        {
-          label: "2000 Credits",
-          isIncluded: true,
-        },
-        {
-          label: "Full Access to Services",
-          isIncluded: true,
-        },
-        {
-          label: "Priority Customer Support",
-          isIncluded: true,
-        },
-        {
-          label: "Priority Updates",
-          isIncluded: true,
-        },
-      ],
-    },
+    // {
+    //   _id: 3,
+    //   name: "Premium Package",
+    //   icon: "/free-plan.svg",
+    //   price: 199,
+    //   credits: '199$ / Month',
+    //   inclusions: [
+    //     {
+    //       label: Intl.NumberFormat('en-US').format(1000000) +" Credits",
+    //       isIncluded: true,
+    //     },
+    //     {
+    //       label: "Full Access to Services",
+    //       isIncluded: true,
+    //     },
+    //     {
+    //       label: "Priority Customer Support",
+    //       isIncluded: true,
+    //     },
+    //     {
+    //       label: "Priority Updates",
+    //       isIncluded: true,
+    //     },
+    //   ],
+    // },
  
   ];
   

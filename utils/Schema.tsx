@@ -1,4 +1,4 @@
-import { pgTable, serial, text, varchar } from "drizzle-orm/pg-core";
+import { pgTable, serial, text, varchar,boolean } from "drizzle-orm/pg-core";
 
 export const AIOutput = pgTable('aioutput', {
     id:            serial('id').primaryKey(),
@@ -9,4 +9,14 @@ export const AIOutput = pgTable('aioutput', {
     createdAt:     varchar('createdAt').notNull(),
   });
   
+  export const UserSubscription = pgTable('userSubscription', {
+    id:         serial('id').primaryKey(),
+    email:      varchar('email').notNull(),
+    userName:   varchar('userName').notNull(),
+    planID:     varchar('planID').notNull(),
+    paymentID:  varchar('paymentId').notNull(),
+    joinDate:     varchar('joinDate').notNull(),
+    active: boolean('active')
+    
+  });
   

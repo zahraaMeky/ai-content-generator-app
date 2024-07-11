@@ -8,10 +8,11 @@ const Billing = () => {
 
   const {user}=useUser();
   const userEmail: string = user?.primaryEmailAddress?.emailAddress ?? "";
+  const userName :string = user?.fullName ?? ""
 
   return (
-    <div className='overflow-y-auto'>
-    <ul className="m-5 p-5 grid grid-cols-1 gap-5 sm:grid-cols-2 md:gap-9 xl:grid-cols-3">
+    <div className='overflow-y-auto max-w-[80%] flex justify-center items-center mx-auto'>
+    <ul className="m-5 p-5 grid grid-cols-2 gap-5 sm:grid-cols-1 md:gap-9 xl:grid-cols-2">
       {plans.map((plan) => (
         <li key={plan.name} className="w-full rounded-[16px] border-2 border-purple-200/20 bg-white p-8 shadow-xl shadow-purple-200/20 lg:max-w-none">
           <div className="flex justify-center items-center flex-col gap-3">
@@ -20,7 +21,7 @@ const Billing = () => {
               {plan.name}
             </p>
             <p className="max-w-[500px] flex-wrap text-center text-white shadow-sm text-dark-600">${plan.price}</p>
-            <p className="font-normal text-[16px] leading-[140%]">{plan.credits} Credits</p>
+            <p className="font-normal text-[16px] leading-[140%]">{plan.credits}</p>
           </div>
 
           {/* Inclusions */}
@@ -54,6 +55,7 @@ const Billing = () => {
                 amount={plan.price}
                 credits={plan.credits}
                 buyerEmail={userEmail}
+                userName={userName}
               />
             </SignedIn>
           )}
