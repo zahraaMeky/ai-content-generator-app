@@ -27,12 +27,12 @@ export interface TEMPLATES {
 
   }
 
-  export interface HISTORY {
-    id : Number; 
-    formData:String,
-    aiResponse:String,
-    templateSlug:String,
-    CreatedBy:String,
-    CreatedAt:String
 
-  }
+export interface HISTORY {
+  id: number;
+  formData: string;
+  aiResponse: string | null;
+  templateSlug: string;
+  createdBy: string;
+  createdAt: string;
+}

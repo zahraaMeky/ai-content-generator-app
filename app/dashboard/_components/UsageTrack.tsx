@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { db } from "@/utils/dbConnection"
 import { AIOutput,UserSubscription } from "@/utils/Schema"
 import { useUser } from "@clerk/nextjs";
-import { eq } from 'drizzle-orm';
+import {eq} from "drizzle-orm";
 import { HISTORY } from "@/app/(type)/Type";
 import { TotalUsageContext } from '@/app/context/TotalUsageContext';
 import { UpdateCreditUsage } from '@/app/context/UpdateCreditUsage';
