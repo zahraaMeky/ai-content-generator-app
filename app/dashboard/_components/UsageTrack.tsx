@@ -29,7 +29,7 @@ const UsageTrack = () => {
       },[updateUsage&&user]);
 
     const getData =async ()=>{
-        const result:HISTORY[] = await db.select().from(AIOutput).where(eq(AIOutput.createdBy,user?.primaryEmailAddress?.emailAddress));
+        const result:HISTORY[] = await db.select().from(AIOutput).where(eq(AIOutput.createdBy as any, user?.primaryEmailAddress?.emailAddress)); 
         countTotalUsage(result)
     }
     const countWords = (text: string) => {
