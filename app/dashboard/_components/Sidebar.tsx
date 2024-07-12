@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation'
 import UsageTrack from './UsageTrack';
+import Link from 'next/link'
 
 const Sidebar = () => {
   const path = usePathname();
@@ -13,14 +14,14 @@ const Sidebar = () => {
   }, []);
   return (
     <div className='h-screen p-5 shadow-sm border bg-white relative'>
-      <div className='flex justify-center'>
+      <Link href="/" className='flex justify-center'>
         <Image
           src="/logo.svg"
           alt="A beautiful landscape"
           width={120}
           height={100}
         />
-      </div>
+      </Link>
       <hr className='my-6 border'/>
       <ul className='mt-3'>
         {navLinks.map((link,index) => (
