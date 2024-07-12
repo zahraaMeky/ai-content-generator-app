@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation'
 import UsageTrack from './UsageTrack';
-import Link from 'next/link'
 
 const Sidebar = () => {
   const path = usePathname();
