@@ -13,29 +13,31 @@ const Layout = ({
     children: React.ReactNode;
   }) => {
     const [totalUsage, setTotalUsage] = useState<number>(0);
-    const [userSubscription,setUserSubscription] = useState<boolean>(false);
+    const [userSubscription, setUserSubscription] = useState<boolean>(false);
     const [updateUsage, setUpdateUsage] = useState<any>();
-    return (
-      <PayPalScriptProvider options={{clientId:process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID}}>
-      <TotalUsageContext.Provider value={{totalUsage,setTotalUsage}}>
-      <UserSubscriptionContext.Provider value={{userSubscription,setUserSubscription}}>
-      <UpdateCreditUsage.Provider value={{updateUsage,setUpdateUsage}}>
-          <div className="bg-slate-100 min-h-screen">
-              <div className="md:w-64  hidden md:block fixed">
-                  <Sidebar/>
-              </div>
-              <div className="md:ml-64">
-                  <Header/>
-                  {children}
-              </div>
-        </div>
-      </UpdateCreditUsage.Provider>
-      </UserSubscriptionContext.Provider>
-      </TotalUsageContext.Provider>
-      </PayPalScriptProvider>
 
+    // Ensure process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID is defined
+    const clientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || '';
+
+    return (
+      <PayPalScriptProvider options={{ clientId }}>
+        <TotalUsageContext.Provider value={{ totalUsage, setTotalUsage }}>
+          <UserSubscriptionContext.Provider value={{ userSubscription, setUserSubscription }}>
+            <UpdateCreditUsage.Provider value={{ updateUsage, setUpdateUsage }}>
+              <div className="bg-slate-100 min-h-screen">
+                <div className="md:w-64  hidden md:block fixed">
+                  <Sidebar />
+                </div>
+                <div className="md:ml-64">
+                  <Header />
+                  {children}
+                </div>
+              </div>
+            </UpdateCreditUsage.Provider>
+          </UserSubscriptionContext.Provider>
+        </TotalUsageContext.Provider>
+      </PayPalScriptProvider>
     );
   };
   
-  export default Layout;
-  
+export default Layout;
