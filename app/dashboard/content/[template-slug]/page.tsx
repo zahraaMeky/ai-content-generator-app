@@ -31,27 +31,31 @@ const CreateNewContent = (props: PROPS) => {
     const selectedTemplate: TEMPLATES | undefined = Templates?.find((item) => item.slug === props.params["template-slug"]);
 
     const generateAiContent = async (formData: string) => {
-        if(totalUsage>10000 && !userSubscription){
-            router.push("/dashboard/billing")
-            console.log("Please Upgrade")
-            // Alert dialog from shadcn
+        if (totalUsage > 10000 && !userSubscription) {
+            router.push("/dashboard/billing");
+            console.log("Please Upgrade");
+            return; // Exit early or show alert dialog
         }
+    
         setLoading(true);
         const selectedPrompt = selectedTemplate?.aiPrompt;
         const finalPrompt = JSON.stringify(formData) + ", " + selectedPrompt;
+    
         try {
             const result = await chatSession.sendMessage(finalPrompt);
             const responseText = await result?.response.text();
-            console.log('responseText',responseText)
+            console.log('responseText', responseText);
             setAiGeneratedOutput(responseText);
-            await saveInDB(formData,selectedTemplate?.slug,responseText)
+            if (formData && selectedTemplate?.slug && responseText) {
+                await saveInDB(formData, selectedTemplate?.slug, responseText);
+            }
             setLoading(false);
-            setUpdateUsage(Date.now())
+            setUpdateUsage(Date.now());
         } catch (error) {
             console.error('Error generating content:', error);
         }
-       
-    }
+    };
+    
     const saveInDB = async (formData: string, slug: string, aiResponse: string) => {
         try {
             const result = await db.insert(AIOutput).values({
