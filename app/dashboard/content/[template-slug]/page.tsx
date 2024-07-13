@@ -30,7 +30,7 @@ const CreateNewContent = (props: PROPS) => {
 
     const selectedTemplate: TEMPLATES | undefined = Templates?.find((item) => item.slug === props.params["template-slug"]);
 
-    const generateAiContent = async (formData: any) => {
+    const generateAiContent = async (formData: string) => {
         if(totalUsage>10000 && !userSubscription){
             router.push("/dashboard/billing")
             console.log("Please Upgrade")
