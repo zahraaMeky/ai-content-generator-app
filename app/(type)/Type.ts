@@ -13,13 +13,14 @@ export interface TEMPLATES {
     name: string;
     required?: boolean;
   }
+  
   export interface PROPS {
-    params:{
+    params: {
       'template-slug': string;
-      aiGeneratedOutput:string
-    }
-   
+      aiGeneratedOutput: string;
+    };
   }
+  
   export interface SELECTEDTEMPLATE  {
     selectedTemplate: TEMPLATES; 
     userFormInput:any,
