@@ -19,12 +19,13 @@ const HistoryList = () => {
   const { user } = useUser();
   const [result, setResult] = useState([]);
   const [loading, setLoading] = useState(false);
-  
+  const userEmail = user?.primaryEmailAddress?.emailAddress;
+
 
   const getData = async () => {
     setLoading(true);
     try {
-      const fetchedResult = await db.select().from(AIOutput).where(eq(AIOutput.createdBy, user?.primaryEmailAddress?.emailAddress));
+      const fetchedResult = await db.select().from(AIOutput).where(eq(AIOutput.createdBy as any,userEmail));
       const resultWithWordCount = fetchedResult.map(item => ({
         ...item,
         wordCount: countWords(item.aiResponse)
@@ -45,7 +46,7 @@ const HistoryList = () => {
     }
   }, [user]);
 
-  const findTemplate = (slug) => {
+  const findTemplate = (slug: string) => {
     return Templates.find(template => template.slug === slug);
   };
 
