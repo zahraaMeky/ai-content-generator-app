@@ -42,13 +42,12 @@
 
 <div>
   ## 🛠️ Technologies Used<br/>
-  - **Next.js:** A React framework for server-side rendering and generating static websites ([https://nextjs.org/](https://nextjs.org/)). Developed during my journey to enhance skills and practice Next.js.<br/>
-  - **React.js:** A JavaScript library for building user interfaces ([https://reactjs.org/](https://reactjs.org/)).<br/>
-  - **Gemini:** An advanced AI platform for content generation ([https://gemini.com/](https://gemini.com/)).<br/>
-  - **Tailwind CSS:** A utility-first CSS framework for styling ([https://tailwindcss.com/](https://tailwindcss.com/)).<br/>
-  - **TypeScript:** A typed superset of JavaScript that compiles to plain JavaScript ([https://typescriptlang.org/](https://typescriptlang.org/)).<br/>
-  - **Clerk:** A user management and authentication service ([https://clerk.dev/](https://clerk.dev/)).<br/>
-  - **Drizzle ORM:** A lightweight and efficient TypeScript Object-Relational Mapper (ORM) that prioritizes developer experience. It includes a command-line interface (CLI) tool called Drizzle Kit for database migrations.<br/>
+  - **Next.js:** A React framework for server-side rendering and generating static websites [https://nextjs.org/].<br/>
+  - **Gemini:** An advanced AI platform for content generation [https://gemini.com/].<br/>
+  - **Tailwind CSS:** A utility-first CSS framework for styling [https://tailwindcss.com/].<br/>
+  - **TypeScript:** A typed superset of JavaScript that compiles to plain JavaScript [https://typescriptlang.org/].<br/>
+  - **Clerk:** A user management and authentication service [https://clerk.dev/].<br/>
+  - **Drizzle ORM:** A lightweight and efficient TypeScript Object-Relational Mapper (ORM) that prioritizes developer experience. It includes a command-line interface (CLI) tool called Drizzle Kit for database migrations [https://orm.drizzle.team/].<br/>
 </div>
 <br/><br/>
 
@@ -58,7 +57,6 @@
 1. **Clone the repository:**
     ```bash
     git clone https://github.com/yourusername/ai-content-generator.git
-    cd ai-content-generator
     ```
 
 2. **Install dependencies:**
@@ -72,8 +70,8 @@
     Create a `.env.local` file in the root directory and add your environment variables. Example:
     ```env
     NEXT_PUBLIC_GEMINI_API_KEY=<Your Gemini API Key>
-    CLERK_FRONTEND_API=<Your Clerk Frontend API>
-    CLERK_API_KEY=<Your Clerk API Key>
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=<Your Clerk Frontend API>
+    CLERK_SECRET_KEY=<Your Clerk Secret Key>
     NEXTAUTH_SECRET=<Your NextAuth Secret>
     NEXTAUTH_URL=<Your NextAuth URL>
     ```
