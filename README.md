@@ -94,13 +94,17 @@
   ## 🗂️ Project Structure <br/>
 
 - `app/`: Main application pages and layouts.<br/>
-- `api/`: Backend API routes for Gemini.<br/>
-- `api/auth/`: Authentication-related API routes for Clerk.<br/>
+- `utils/`: Backend API routes for Gemini.<br/>
+- `auth/`: Authentication-related data and routes for Clerk.<br/>
 - `components/`: Reusable React components.<br/>
 - `constants/`: Application-wide constants.<br/>
+- `context/`: Context providers for updating user credentials.<br/>
+- `data/`: Template arrays and static data.<br/>
 - `globals.css/`: Global styles and Tailwind CSS configuration.<br/>
 - `lib/`: Utility functions.<br/>
 - `public/`: Static files and assets.<br/>
+- `schema/`: Database table schemas for Drizzle ORM.<br/>
+- `types/`: TypeScript interfaces and types.<br/>
 
 ## 🔒 Protected Routes<br/><br/>
 
