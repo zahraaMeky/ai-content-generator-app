@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Loader2Icon } from 'lucide-react';
 
 // Utility function to count words in a string
-const countWords = (text) => {
+const countWords = (text: string | null) => {
   return text ? text.replace(/[#*]/g, '').split(/\s+/).filter(word => word.length > 0).length : 0;
 };
 
