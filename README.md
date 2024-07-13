@@ -1,6 +1,5 @@
 <div align="center">
-  <br />
-  <img src="https://your-image-link.com/banner.png" alt="Project Banner">
+  <img src="https://github.com/user-attachments/assets/3750701e-6557-442e-99fc-b83c38c73fbf" alt="Project Banner">
   <br />
 </div>
 <br />
