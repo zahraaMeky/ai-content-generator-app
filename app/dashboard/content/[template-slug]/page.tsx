@@ -30,7 +30,7 @@ const CreateNewContent = (props: PROPS) => {
 
     const selectedTemplate: TEMPLATES | undefined = Templates?.find((item) => item.slug === props.params["template-slug"]);
 
-    const generateAiContent = async (formData: any) => {
+    const generateAiContent = async (formData: string) => {
         if(totalUsage>10000 && !userSubscription){
             router.push("/dashboard/billing")
             console.log("Please Upgrade")
@@ -52,17 +52,21 @@ const CreateNewContent = (props: PROPS) => {
         }
        
     }
-    const saveInDB=async(formData:any,slug:any,aiResponse:string)=>{
-        const result = await db.insert(AIOutput).values({
-            formData:formData,
-            templateSlug:slug,
-            aiResponse:aiResponse,
-            createdBy:user?.primaryEmailAddress?.emailAddress,
-            createdAt:moment().format("DD/MM/YYYY")
-        })
-        console.log(result,user?.primaryEmailAddress?.emailAddress)
-
-    }
+    const saveInDB = async (formData: string, slug: string, aiResponse: string) => {
+        try {
+            const result = await db.insert(AIOutput).values({
+                formData: formData as string,
+                templateSlug: slug as string,
+                aiResponse: aiResponse as string,
+                createdBy: user?.primaryEmailAddress?.emailAddress || '',
+                createdAt: moment().format("DD/MM/YYYY")
+            });
+            console.log(result, user?.primaryEmailAddress?.emailAddress);
+        } catch (error) {
+            console.error('Error saving to database:', error);
+        }
+    };
+    
 
     if (!selectedTemplate) {
         return (
