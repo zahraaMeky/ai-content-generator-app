@@ -116,8 +116,8 @@ Users can generate various types of content using the AI-powered tools. The syst
 <div>
   ## 📧 Contact<br/>
 
-For any inquiries, please reach out to [your.email@example.com](mailto:your.email@example.com).<br/>
-or contact via WhatsApp at +1234567890.
+For any inquiries, please reach out to [eng.alzahraa.meky@gmail.com](eng.alzahraa.meky@gmail.com).<br/>
+or contact via WhatsApp at +96899495057.
 
 ---
 
