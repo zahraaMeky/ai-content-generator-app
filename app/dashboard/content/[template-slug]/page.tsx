@@ -28,7 +28,7 @@ const CreateNewContent = (props: PROPS) => {
     const {userSubscription,setUserSubscription} = useContext(UserSubscriptionContext);
     const router = useRouter()
 
-    const selectedTemplate: TEMPLATES = Templates?.find((item) => item.slug === props.params["template-slug"]);
+    const selectedTemplate: TEMPLATES | undefined = Templates?.find((item) => item.slug === props.params["template-slug"]);
 
     const generateAiContent = async (formData: any) => {
         if(totalUsage>10000 && !userSubscription){
@@ -52,7 +52,7 @@ const CreateNewContent = (props: PROPS) => {
         }
        
     }
-    const saveInDB=async(formData:string,slug:string,aiResponse:string)=>{
+    const saveInDB=async(formData:string,slug:any,aiResponse:string)=>{
         const result = await db.insert(AIOutput).values({
             formData:formData,
             templateSlug:slug,
