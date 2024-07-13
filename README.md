@@ -69,11 +69,15 @@
 3. **Add environment variables:**
     Create a `.env.local` file in the root directory and add your environment variables. Example:
     ```env
-    NEXT_PUBLIC_GEMINI_API_KEY=<Your Gemini API Key>
-    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=<Your Clerk Frontend API>
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=<Your Clerk Publishable Key>
     CLERK_SECRET_KEY=<Your Clerk Secret Key>
-    NEXTAUTH_SECRET=<Your NextAuth Secret>
-    NEXTAUTH_URL=<Your NextAuth URL>
+    NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+    NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+    NEXT_PUBLIC_GEMINI_API_KEY=<Your Gemini API Key>
+    NEXT_PUBLIC_DRIZZLE_DB_URL=<Your Drizzle ORM Database URL>
+    NEXT_PUBLIC_PAYPAL_CLIENT_ID=<Your PayPal Client ID>
+    NEXT_PUBLIC_PAYPAL_CLIENT_SECRET=<Your PayPal Client Secret>
+
     ```
 
 4. **Run the development server:**
